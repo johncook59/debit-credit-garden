@@ -1,0 +1,50 @@
+kind: Project
+name: debit-credit
+environments:
+  - name: dev
+    defaultNamespace: dev
+    providers:
+      - name: kubernetes
+        context: microk8s
+        buildMode: kaniko
+#        defaultHostname: microk8s.zarg.co.uk
+        setupIngressController: false
+defaultEnvironment: dev
+
+# Postgres
+---
+kind: Module
+name: psqldata
+type: persistentvolumeclaim
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: Module
+description: Postgres container
+type: container
+name: postgres
+image: postgres:13-alpine
+services:
+  - name: postgres
+#    cpu:
+#      max: 250
+#    memory:
+#      max: 500
+    dependencies:
+      - psqldata
+    volumes:
+      - name: psqldata
+        module: psqldata
+        containerPath: /var/lib/postgresql/data/
+    ports:
+      - name: postgres
+        protocol: TCP
+        containerPort: 5432
+    env:
+      POSTGRES_DATABASE: debit_credit
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: letmein
+      PGDATA: /var/lib/postgresql/data/
