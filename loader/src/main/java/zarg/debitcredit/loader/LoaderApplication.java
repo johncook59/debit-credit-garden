@@ -1,4 +1,4 @@
-package zarg.bank.loader;
+package zarg.debitcredit.loader;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-import zarg.bank.loader.generator.Loader;
+import zarg.debitcredit.loader.generator.Loader;
 
 @SpringBootApplication()
 @Slf4j

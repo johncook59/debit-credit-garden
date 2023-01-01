@@ -1,3 +1,5 @@
+SET search_path = debit_credit;
+
 CREATE SEQUENCE IF NOT EXISTS public.hibernate_sequence
     INCREMENT 1
     START 1
@@ -7,6 +9,7 @@ CREATE SEQUENCE IF NOT EXISTS public.hibernate_sequence
 
 ALTER SEQUENCE public.hibernate_sequence
     OWNER TO postgres;
+---
 
 CREATE SEQUENCE IF NOT EXISTS public.account_id_seq
     INCREMENT 1
@@ -18,23 +21,14 @@ CREATE SEQUENCE IF NOT EXISTS public.account_id_seq
 ALTER SEQUENCE public.account_id_seq
     OWNER TO postgres;
 
-CREATE SEQUENCE IF NOT EXISTS public.account_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1;
-
-ALTER SEQUENCE public.account_seq
-    OWNER TO postgres;
-
 CREATE TABLE IF NOT EXISTS public.account
 (
-    id integer NOT NULL DEFAULT nextval('account_id_seq'::regclass),
-    balance numeric(19,2) NOT NULL,
-    bid character varying(12) COLLATE pg_catalog."default" DEFAULT concat('A', lpad((nextval('hibernate_sequence'::regclass))::text, 8, '0'::text)),
-    name character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    version integer NOT NULL,
+    id      integer                                            NOT NULL DEFAULT nextval('public.account_id_seq'::regclass),
+    balance numeric(19, 2)                                     NOT NULL,
+    bid     character varying(12) COLLATE pg_catalog."default"          DEFAULT concat('A', lpad(
+            (nextval('public.hibernate_sequence'::regclass))::text, 8, '0'::text)),
+    name    character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    version integer                                            NOT NULL,
     CONSTRAINT account_pkey PRIMARY KEY (id)
 );
 
@@ -45,6 +39,7 @@ CREATE INDEX IF NOT EXISTS idx_account_bid
     ON public.account USING btree
     (bid COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
+---
 
 CREATE SEQUENCE IF NOT EXISTS public.customer_id_seq
     INCREMENT 1
@@ -56,25 +51,16 @@ CREATE SEQUENCE IF NOT EXISTS public.customer_id_seq
 ALTER SEQUENCE public.customer_id_seq
     OWNER TO postgres;
 
-CREATE SEQUENCE IF NOT EXISTS public.customer_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1;
-
-ALTER SEQUENCE public.customer_seq
-    OWNER TO postgres;
-
 CREATE TABLE IF NOT EXISTS public.customer
 (
-    id integer NOT NULL DEFAULT nextval('customer_id_seq'::regclass),
-    bid character varying(12) COLLATE pg_catalog."default" DEFAULT concat('C', lpad((nextval('hibernate_sequence'::regclass))::text, 8, '0'::text)),
+    id            integer                                            NOT NULL DEFAULT nextval('public.customer_id_seq'::regclass),
+    bid           character varying(12) COLLATE pg_catalog."default"          DEFAULT concat('C', lpad(
+            (nextval('public.hibernate_sequence'::regclass))::text, 8, '0'::text)),
     email_address character varying(60) COLLATE pg_catalog."default" NOT NULL,
-    given_name character varying(40) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    surname character varying(40) COLLATE pg_catalog."default" NOT NULL,
-    version integer NOT NULL,
+    given_name    character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    password      character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    surname       character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    version       integer                                            NOT NULL,
     CONSTRAINT customer_pkey PRIMARY KEY (id),
     CONSTRAINT uk_email_address UNIQUE (email_address)
 );
@@ -91,6 +77,7 @@ CREATE INDEX IF NOT EXISTS idx_customer_email_address
     ON public.customer USING btree
     (email_address COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
+---
 
 CREATE TABLE IF NOT EXISTS public.customer_account
 (
@@ -108,6 +95,7 @@ CREATE TABLE IF NOT EXISTS public.customer_account
 
 ALTER TABLE public.customer_account
     OWNER to postgres;
+---
 
 CREATE SEQUENCE IF NOT EXISTS public.transaction_id_seq
     INCREMENT 1
@@ -120,27 +108,18 @@ ALTER SEQUENCE public.transaction_id_seq
     OWNER TO postgres;
 
 
-CREATE SEQUENCE IF NOT EXISTS public.transaction_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1;
-
-ALTER SEQUENCE public.transaction_seq
-    OWNER TO postgres;
-
 CREATE TABLE IF NOT EXISTS public.transaction
 (
-    id integer NOT NULL DEFAULT nextval('transaction_id_seq'::regclass),
-    account_bid character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    amount numeric(19,2) NOT NULL,
-    balance numeric(19,2) NOT NULL,
-    bid character varying(12) COLLATE pg_catalog."default" DEFAULT concat('T', lpad((nextval('hibernate_sequence'::regclass))::text, 10, '0'::text)),
-    direction character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    id           integer                                             NOT NULL DEFAULT nextval('public.transaction_id_seq'::regclass),
+    account_bid  character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    amount       numeric(19, 2)                                      NOT NULL,
+    balance      numeric(19, 2)                                      NOT NULL,
+    bid          character varying(12) COLLATE pg_catalog."default"           DEFAULT concat('T', lpad(
+            (nextval('public.hibernate_sequence'::regclass))::text, 10, '0'::text)),
+    direction    character varying(255) COLLATE pg_catalog."default" NOT NULL,
     processed_dt timestamp with time zone,
-    user_bid character varying(12) COLLATE pg_catalog."default" NOT NULL,
-    version integer NOT NULL,
+    user_bid     character varying(12) COLLATE pg_catalog."default"  NOT NULL,
+    version      integer                                             NOT NULL,
     CONSTRAINT transaction_pkey PRIMARY KEY (id)
 );
 

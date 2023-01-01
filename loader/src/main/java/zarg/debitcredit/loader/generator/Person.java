@@ -1,4 +1,4 @@
-package zarg.bank.loader.generator;
+package zarg.debitcredit.loader.generator;
 
 import lombok.Getter;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim-buster
+FROM openjdk:17-alpine3.14
 
 MAINTAINER john@zarg.co.uk
 

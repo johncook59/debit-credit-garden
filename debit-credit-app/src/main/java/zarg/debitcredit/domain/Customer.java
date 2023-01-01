@@ -24,6 +24,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +47,15 @@ public class Customer {
 
     @Id
     @Column(name = "id", columnDefinition = "serial", nullable = false, updatable = false)
-    @GeneratedValue
+    @GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+            name = "sequence-generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "public.customer_id_seq"),
+                    @Parameter(name = "increment_size", value = "1")
+            })
+
     private Long id;
 
     @Column(name = "bid", length = 12, updatable = false, insertable = false)
