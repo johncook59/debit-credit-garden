@@ -78,6 +78,9 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
 				</configuration>
 			</plugin>
             <plugin>
@@ -91,7 +94,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>test</phase>
+						<phase>none</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>

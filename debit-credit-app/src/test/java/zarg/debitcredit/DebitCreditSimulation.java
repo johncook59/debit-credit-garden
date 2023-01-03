@@ -19,7 +19,7 @@ public class DebitCreditSimulation extends Simulation {
     private static final String highContentionAccounts = "top_requests.csv";
 
     private static final int hcUsers = 5;
-    private static final int users = 10;
+    private static final int users = 50;
     private static final int repeats = 20;
 
     public DebitCreditSimulation() {

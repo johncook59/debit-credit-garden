@@ -29,8 +29,8 @@ name: postgres
 image: postgres:13-alpine
 services:
   - name: postgres
-#    cpu:
-#      max: 250
+    cpu:
+      max: 2000
 #    memory:
 #      max: 500
     dependencies:

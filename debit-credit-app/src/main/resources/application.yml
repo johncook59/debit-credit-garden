@@ -2,8 +2,10 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${db.hostname}/${db.db_name}?stringtype=unspecified
-    username: ${db.username}
-    password: ${db.password}
+    #    username: ${db.username}
+    #    password: ${db.password}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
@@ -17,6 +19,6 @@ spring:
 
 db:
   hostname: localhost:5432
-  username: postgres
-  password: letmein
+  #  username: postgres
+  #  password: letmein
   db_name: debit_credit
