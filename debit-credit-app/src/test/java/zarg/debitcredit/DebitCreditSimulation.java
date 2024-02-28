@@ -19,8 +19,8 @@ public class DebitCreditSimulation extends Simulation {
     private static final String highContentionAccounts = "top_requests.csv";
 
     private static final int hcUsers = 5;
-    private static final int users = 50;
-    private static final int repeats = 20;
+    private static final int users = 25;
+    private static final int repeats = 25;
 
     public DebitCreditSimulation() {
 
@@ -30,7 +30,7 @@ public class DebitCreditSimulation extends Simulation {
         FeederBuilder.Batchable<String> highContentionFeeder = csv(highContentionAccounts).shuffle().circular();
 
         HttpProtocolBuilder httpProtocol = http
-                .baseUrl("http://localhost:8080/teller/")
+                .baseUrl("http://localhost:52739/teller/")
                 .contentTypeHeader("application/json")
                 .acceptHeader("application/json")
                 .userAgentHeader("Gatling");

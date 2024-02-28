@@ -7,7 +7,9 @@ environments:
       - name: kubernetes
         context: microk8s
         buildMode: kaniko
-#        defaultHostname: microk8s.zarg.co.uk
+        kaniko:
+          namespace: null
+        defaultHostname: microk8s.zarg.co.uk
         setupIngressController: false
 defaultEnvironment: dev
 

@@ -1,11 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${db.hostname}/${db.db_name}?stringtype=unspecified
-    #    username: ${db.username}
-    #    password: ${db.password}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST:${db.host}}/${DB_NAME:${db.name}}?stringtype=unspecified
+    username: ${DB_USERNAME:${db.username}}
+    password: ${DB_PASSWORD:${db.password}}
   jpa:
     hibernate:
       ddl-auto: none
@@ -18,7 +16,7 @@ spring:
 #        format_sql: true
 
 db:
-  hostname: localhost:5432
-  #  username: postgres
-  #  password: letmein
-  db_name: debit_credit
+  host: localhost:5432
+  username: postgres
+  password: letmein
+  name: debit_credit

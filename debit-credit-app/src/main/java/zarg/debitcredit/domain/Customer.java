@@ -47,9 +47,9 @@ public class Customer {
 
     @Id
     @Column(name = "id", columnDefinition = "serial", nullable = false, updatable = false)
-    @GeneratedValue(generator = "sequence-generator")
+    @GeneratedValue(generator = "customer-sequence-generator")
     @GenericGenerator(
-            name = "sequence-generator",
+            name = "customer-sequence-generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = "public.customer_id_seq"),

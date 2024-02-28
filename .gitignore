@@ -29,3 +29,5 @@ results/
 /terraform/.terraform/
 /terraform/terraform.iml
 .garden
+/debit-credit-app/debit-credit-app.iml
+/loader/loader.iml

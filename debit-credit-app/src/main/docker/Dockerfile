@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jre as builder
+FROM eclipse-temurin:17-alpine as builder
 
 MAINTAINER john@zarg.co.uk
 
@@ -10,7 +10,7 @@ COPY ${JAR_FILE} application.jar
 
 RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-alpine
 
 ENV DB_HOST=postgres:5432
 ENV DB_NAME=debit_credit

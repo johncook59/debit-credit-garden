@@ -35,9 +35,9 @@ public class Account {
 
     @Id
     @Column(name = "id", columnDefinition = "serial", nullable = false, updatable = false)
-    @GeneratedValue(generator = "sequence-generator")
+    @GeneratedValue(generator = "account-sequence-generator")
     @GenericGenerator(
-            name = "sequence-generator",
+            name = "account-sequence-generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = "public.account_id_seq"),

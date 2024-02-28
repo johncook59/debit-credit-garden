@@ -1,0 +1,20 @@
+kind: Module
+description: Spring Boot debit-credit service
+type: container
+name: debit-credit
+dockerfile: Dockerfile
+#image: localhost:5000/debit-credit-app:latest
+services:
+  - name: debit-credit
+    ports:
+      - name: http
+        containerPort: 8080
+        servicePort: 80
+    healthCheck:
+      httpGet:
+        path: /actuator/health
+        port: http
+    ingresses:
+      - path: /
+        port: http
+    replicas: 3

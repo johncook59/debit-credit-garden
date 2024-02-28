@@ -2,7 +2,6 @@ package zarg.debitcredit.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ class TellerControllerTest {
     private final Random random = new Random();
 
     @Test
-    void shouldReadBalanceForOwnedaccounts() throws Exception {
+    void shouldReadBalanceForOwnedAccounts() throws Exception {
         CustomerResponse customer = createCustomer(OWNER);
         MvcResult result = this.mvc.perform(MockMvcRequestBuilders.get(String.format("/teller/%s/%s/balance", customer.bid(), customer.accounts().get(0))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -192,6 +191,7 @@ class TellerControllerTest {
     }
 
     private CustomerResponse createCustomer(String name) throws Exception {
+        // FIXME Don't fail on duplicated email address
         String request = String.format(REGISTER_CUSTOMER_REQUEST, name, name, name + random.nextInt(1000) + "@somewhere.com");
         MvcResult result = this.mvc.perform(MockMvcRequestBuilders.post("/customer")
                 .content(request)

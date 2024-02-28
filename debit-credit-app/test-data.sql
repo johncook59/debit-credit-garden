@@ -16,5 +16,5 @@ INTO public.all_requests
 FROM cust_accs
 ORDER BY random();
 
-\COPY (SELECT customer_bid,account_bid,'{"amount" : 1.00}' AS debit_request,'{"accountId" : "' || account_bid || '", "amount" : 1.00}' AS credit_request FROM public.all_requests WHERE score != 0 ORDER BY random()) TO './src/test/gatling/resources/other_requests.csv' DELIMITER ',' CSV HEADER;
-\COPY (SELECT customer_bid,account_bid,'{"amount" : 1.00}' AS debit_request,'{"accountId" : "' || account_bid || '", "amount" : 1.00}' AS credit_request FROM public.all_requests WHERE score = 0 ORDER BY random()) TO './src/test/gatling/resources/top_requests.csv' DELIMITER ',' CSV HEADER;
+\COPY (SELECT customer_bid,account_bid,'{"amount" : 1.00}' AS debit_request,'{"accountId" : "' || account_bid || '", "amount" : 1.00}' AS credit_request FROM public.all_requests WHERE score != 0 ORDER BY random()) TO './src/test/resources/other_requests.csv' DELIMITER ',' CSV HEADER;
+\COPY (SELECT customer_bid,account_bid,'{"amount" : 1.00}' AS debit_request,'{"accountId" : "' || account_bid || '", "amount" : 1.00}' AS credit_request FROM public.all_requests WHERE score = 0 ORDER BY random()) TO './src/test/resources/top_requests.csv' DELIMITER ',' CSV HEADER;

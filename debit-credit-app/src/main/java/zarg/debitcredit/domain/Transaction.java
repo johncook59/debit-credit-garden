@@ -40,9 +40,9 @@ public class Transaction {
 
     @Id
     @Column(name = "id", columnDefinition = "serial", nullable = false, updatable = false)
-    @GeneratedValue(generator = "sequence-generator")
+    @GeneratedValue(generator = "transaction-sequence-generator")
     @GenericGenerator(
-            name = "sequence-generator",
+            name = "transaction-sequence-generator",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = "public.transaction_id_seq"),
